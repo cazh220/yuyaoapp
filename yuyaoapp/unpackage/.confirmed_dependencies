@@ -3,7 +3,11 @@
     "refer": [
       "setting.html"
     ],
-    "resources": []
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
   },
   "login.html": {
     "resources": [
@@ -19,7 +23,8 @@
     "refer": [
       "main.html",
       "forget_password.html",
-      "reg.html"
+      "reg.html",
+      "index.html"
     ]
   },
   "setting.html": {
@@ -33,7 +38,11 @@
       "css/feedback-page.css",
       "js/feedback-page.js",
       "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
-      "js/mui.view.js"
+      "js/mui.view.js",
+      "js/app.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/iconfont-tianjia.png"
     ],
     "refer": []
   },
@@ -50,7 +59,10 @@
       "tab-webview-subpage-setting.html",
       "tab-webview-subpage-chat.html",
       "tab-webview-subpage-contact.html",
-      "home.html"
+      "home.html",
+      "cart.html",
+      "order.html",
+      "mine.html"
     ]
   },
   "home.html": {
@@ -61,5 +73,70 @@
       "css/mui.min.css"
     ],
     "refer": []
+  },
+  "order.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "order_detail.html"
+    ],
+    "refer": []
+  },
+  "mine.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/user-photo.png",
+      "login.html",
+      "/js/mui.view.js",
+      "about.html"
+    ],
+    "refer": [
+      "user.html",
+      "feedback.html",
+      "about.html",
+      "login.html"
+    ]
+  },
+  "reg.html": {
+    "resources": [
+      "css/style.css",
+      "fonts/mui.ttf",
+      "js/app.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "user.html": {
+    "resources": [
+      "js/app.js",
+      "css/style.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ]
+  },
+  "feedback.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "css/feedback-page.css",
+      "js/feedback.js",
+      "js/feedback-page.js",
+      "css/feedback.css"
+    ]
+  },
+  "about.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ]
   }
 }

@@ -5,7 +5,7 @@
 		"iPad"
 	],
 	"id": "H542D8805",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "yuyaoapp",/*应用名称，程序桌面图标名称*/
+	"name": "yuyaoapp1",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
@@ -21,9 +21,7 @@
 		"url": "http://www.dcloud.io"
 	},
 	"permissions": {
-		"Accelerometer": {
-			"description": "访问加速度感应器"
-		},
+		
 
 		"Cache": {
 			"description": "管理应用缓存"
@@ -34,45 +32,23 @@
 		},
 
 
-		"Downloader": {
-			"description": "文件下载管理"
-		},
+		
 		"Events": {
 			"description": "应用扩展事件"
 		},
-		"File": {
-			"description": "访问本地文件系统"
-		},
-		"Gallery": {
-			"description": "访问系统相册"
-		},
+		
+		
 
-		"Invocation": {
-			"description": "使用Native.js能力"
-		},
+		
 
-		"Orientation": {
-			"description": "访问方向感应器"
-		},
-		"Proximity": {
-			"description": "访问距离感应器"
-		},
-		"Storage": {
-			"description": "管理应用本地数据"
-		},
+		
+		
+		
 		"UI": {},
-		"Uploader": {
-			"description": "管理文件上传任务"
-		},
-		"Runtime": {
-			"description": "访问运行期环境"
-		},
-		"XMLHttpRequest": {
-			"description": "跨域网络访问"
-		},
-		"Zip": {
-			"description": "文件压缩与解压缩"
-		},
+		
+		
+		
+		
 
 
 
@@ -81,8 +57,7 @@
 
 		"Webview": {},
 		"NativeUI": {},
-		"Navigator": {},
-		"NativeObj": {},"Share":{},"OAuth":{},"Device":{}
+		"Navigator": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -145,7 +120,7 @@
 					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
 					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
 					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
-					"xxhdpi": "unpackage/res/icons/144x144.png"
+					"xxhdpi": "unpackage/res/icons/144x144.png","xxxhdpi":"unpackage/res/icons/192x192.png"
 				}
 			},
 			"splashscreen": {
@@ -169,8 +144,8 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
+					 /*高分屏启动图片，分辨率：480x762*/
+					 /*720P高分屏启动图片，分辨率：720x1242*/
 					"xxhdpi": ""
 				}
 			},"debug":true
@@ -272,7 +247,8 @@
 					"unlock.html",
 					"forget_password.html",
 					"main.html",
-					"reg.html"
+					"reg.html",
+					"index.html"
 				],
 				"priority": 0
 			},
@@ -295,8 +271,72 @@
 				],
 				"refer": [
 					"tab-webview-subpage-setting.html",
-					"tab-webview-subpage-contact.html"
+					"tab-webview-subpage-contact.html",
+					"cart.html",
+					"order.html",
+					"mine.html"
 				],
+				"priority": 0
+			},
+			"order.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"order_detail.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"mine.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"images/user-photo.png",
+					"login.html",
+					"/js/mui.view.js",
+					"about.html"
+				],
+				"refer": [
+					"user.html",
+					"feedback.html"
+				],
+				"priority": 0
+			},
+			"user.html": {
+				"resources": [
+					"js/app.js",
+					"css/style.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"feedback.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/style.css",
+					"css/feedback-page.css",
+					"js/feedback.js",
+					"js/feedback-page.js",
+					"css/feedback.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"about.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
@@ -304,7 +344,6 @@
 			"resources": [
 				"js/service.js",
 				"libs/easymob-webim-sdk/quickstart.md",
-				"images/user-photo.png",
 				"README.md"
 			]
 		}

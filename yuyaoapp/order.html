@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+		
+	</head>
+	<body>
+
+		<div class="mui-content">
+			<div class="mui-card">
+				<ul class="mui-table-view" id="order_list" style="font-size: 12px;">
+					
+					
+					
+					
+				</ul>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			
+			//获取我的订单，预加载
+			mui.ajax('http://www.yrsyc.cn/yuyao/api/order_list.php',{
+				data:{},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'},	
+				async:false,
+				crossDomain:true,
+				success:function(data){
+					//服务器返回响应，根据响应结果
+					if(data.status == 0)
+					{
+						mui.toast(data.message);
+						controls.innerHTML = html.join('没有订单...');
+					}
+					else
+					{
+						//var vData = JSON.stringify(data['list'][0]['children']);
+						//console.log(vData);
+						
+						html = [];
+						for(var i=0; i<data.list.length; i++)
+						{
+							var txt = '';
+							txt = '<li class="mui-table-view-cell mui-collapse" style="background-color:beige"><a class="mui-navigate-right" href="#"><table width="100%" height="80px"><tr><td width="60%">订单编号：'+data['list'][i]['order_no']+'</td><td width="30%">订单金额：'+data['list'][i]['total_amount']+'</td></tr><tr><td>下单时间：'+data['list'][i]['confirm_time']+'</td><td><font color="red">'+data['list'][i]['order_status_name']+'</font></td></tr></table></a><div class="mui-collapse-content"><form class="mui-input-group">';
+							txt += '<div class="mui-input-row"><table style="text-align:center; width:100%; height:100%; border-top: solid 1px #4CD964;border-bottom: solid 1px #4CD964;"><tr><td>名称</td><td>价格</td><td>数量</td><td>小计</td></tr></table></div>';
+							for(var j=0; j<data['list'][i]['children'].length; j++)
+							{
+								txt += '<div class="mui-input-row"><table style="text-align:center; width:100%; height:100%"><tr><td width="25%">'+data['list'][i]['children'][j]['goods_name']+'</td><td width="25%">￥'+data['list'][i]['children'][j]['good_price']+'</td><td width="25%">'+data['list'][i]['children'][j]['goods_num']+'</td><td width="25%">￥'+data['list'][i]['children'][j]['amount']+'</td></tr></table></div>';
+							}
+							txt += '</form></div></li>';
+							html.push(txt);
+						}
+						
+						var controls = document.getElementById("order_list");
+						controls.innerHTML = html.join('');
+						
+					}
+
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			
+			
+		</script>
+	</body>
+<table style="vertical-align: middle; border-top: solid 1px #4CD964; background-color:beige"><tr><td></td></tr></table>
+</html>

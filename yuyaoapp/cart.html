@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的购物车</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的购物车</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<ul class="mui-table-view" id="goods_list">
+										
+					
+				</ul>
+			</div>
+		</div>
+		
+		<nav class="mui-bar mui-bar-tab" style="background-color:orange;">
+			<table style="text-align: center; vertical-align: middle;" width="100%">
+				<tr>
+					<td width="60%" style="line-height: 50px"><span id="id_set" style="display: none;"></span><span id="order_id" style="display: none;"></span></td>
+					<td style=" background-color: #555555;line-height: 50px;"><a href="#" onclick="confirm()" style="color: #FFFFFF; ">下单</a></td>
+				</tr>
+			</table>
+			
+		</nav>
+		
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		//圆角列表开关处理
+		/*
+		document.getElementById("M_Toggle").addEventListener('toggle',function (e) {
+			var isActive = e.detail.isActive;
+			var table = document.querySelector('.mui-table-view');
+			var card = document.querySelector('.mui-card');
+			if (isActive) {
+				card.appendChild(table);
+				card.style.display = '';
+			} else {
+				var content = document.querySelector('.mui-content');
+				content.insertBefore(table, card);
+				card.style.display = 'none';
+			}
+		});*/
+		//预加载
+		var controls = document.getElementById("goods_list");
+		mui.ajax('http://www.yrsyc.cn/yuyao/api/cart_goods.php',{
+			data:{user_id:1},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			headers:{'Content-Type':'application/json'},	
+			async:false,
+			crossDomain:true,
+			success:function(data){
+				//var vData = JSON.stringify(data);
+				//alert(vData);return false;
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+				if(data.status == 1)
+				{
+					html = [];
+					_id = [];
+					for(var i=0; i<data['list'].length; i++)
+					{
+						_id.push(data['list'][i]['goods_id']);
+						html.push('<li class="mui-table-view-cell"><table style="font-size: 14px;"><tr><td width="15%">名称：</td><td>'+data['list'][i]['goods_name']+'</td><td rowspan="4" width="20%"><div class="mui-numbox" data-numbox-min="1" data-numbox-max="999"><button class="mui-btn mui-btn-numbox-minus" type="button">-</button><input id="num_'+data["list"][i]["goods_id"]+'" class="mui-input-numbox" type="number" /><button class="mui-btn mui-btn-numbox-plus" type="button">+</button></div></td></tr><tr><td>价格：</td><td>'+data['list'][i]['good_price']+'</td></tr><tr><td>库存：</td><td>'+data['list'][i]['stock']+'</td></tr><tr><td>描述：</td><td>'+data['list'][i]['description']+'</td></tr></table></li>');
+					}
+					controls.innerHTML = html.join('');
+					document.getElementById("id_set").innerHTML = _id.join(',');
+					document.getElementById("order_id").innerHTML = data['order_id'];
+				}
+				else
+				{
+					mui.toast(data.message);
+				}
+				
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(type);
+			}
+		});
+		
+		//下单
+		function confirm()
+		{
+			var controlsElem = document.getElementById("goods_list");
+			var controlListElem = controlsElem.querySelectorAll('.ids');
+			
+			var x = document.getElementById("id_set").innerHTML;
+			id = x.split(",")
+			//var vData = JSON.stringify(id)
+			//alert(id.length);return false;
+			
+			ndata = [];
+			for(var i=0; i<id.length;i++)
+			{
+				var info = '';
+				var p = document.getElementById("num_"+id[i]).value;
+				info = id[i]+':'+p;
+				ndata.push(info);
+			}
+			var pData = JSON.stringify(ndata);
+			var order_id = document.getElementById("order_id").innerHTML;
+			//console.log(pData);
+			mui.post('http://www.yrsyc.cn/yuyao/api/confirm_order.php',{info:pData,order_id:order_id},function(data){
+					//服务器返回响应，根据响应结果，分析是否登录成功；
+					mui.toast(data.message);
+					location.reload();
+					/*
+					if(data.status == 0)
+					{
+						 mui.toast(data.message);
+					}*/
+					//var vData = JSON.stringify(data)
+					//alert(vData);
+				},'json'
+			);
+			
+		}
+	</script>
+</html>
